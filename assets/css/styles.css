@@ -338,6 +338,7 @@ p {
   grid-auto-rows: 180px;
   gap: clamp(1rem, 2vw, 1.75rem);
   margin-top: clamp(3rem, 8vh, 5rem);
+  position: relative;
 }
 
 .card {
@@ -1191,6 +1192,103 @@ details p {
   text-decoration: underline;
 }
 
+.card-band[data-joy-band] {
+  position: relative;
+  isolation: isolate;
+  --joy-gradient-a: rgba(14, 86, 55, 0.12);
+  --joy-gradient-b: rgba(14, 86, 55, 0.12);
+}
+
+.card-band[data-joy-band].joy-band--active {
+  --joy-cols: 4;
+  --joy-rows: 2;
+  --joy-gap: 0.8rem;
+  display: block;
+  height: clamp(340px, 45vw, 520px);
+  padding: calc(var(--joy-gap) / 2);
+  margin-top: clamp(3rem, 8vh, 5rem);
+  border-radius: clamp(2.4rem, 5vw, 3.6rem);
+  background: radial-gradient(circle at top left, rgba(14, 86, 55, 0.12), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(14, 86, 55, 0.12), transparent 60%);
+  box-shadow: inset 0 0 0 1px rgba(15, 32, 24, 0.08);
+  background:
+    radial-gradient(circle at top left, var(--joy-gradient-a, rgba(14, 86, 55, 0.12)), transparent 55%),
+    radial-gradient(circle at bottom right, var(--joy-gradient-b, rgba(14, 86, 55, 0.12)), transparent 60%);
+}
+
+.card-band[data-joy-band].joy-band--active .card {
+  position: absolute;
+  width: calc((100% - var(--joy-gap) * (var(--joy-cols) - 1)) / var(--joy-cols));
+  height: calc((100% - var(--joy-gap) * (var(--joy-rows) - 1)) / var(--joy-rows));
+  margin: 0;
+  border-radius: clamp(1.6rem, 3vw, 2.6rem);
+  overflow: hidden;
+  box-shadow: 0 26px 56px rgba(12, 26, 21, 0.16);
+  transition: box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.card-band[data-joy-band].joy-band--active::after {
+  content: "JOY";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(6rem, 12vw, 15rem);
+  letter-spacing: -0.08em;
+  color: rgba(255, 255, 255, 0.08);
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  animation: joyPulse 12s infinite ease-in-out;
+}
+
+.card-band[data-joy-band].joy-band--active .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, var(--joy-accent, rgba(14, 86, 55, 0.45)) 0%, rgba(15, 32, 24, 0.24) 100%);
+  opacity: 0.22;
+  transition: opacity 320ms ease, transform 320ms ease, background 320ms ease;
+  z-index: 0;
+}
+
+.card-band[data-joy-band].joy-band--active .card[data-joy-image="true"]::before {
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+
+.card-band[data-joy-band].joy-band--active .card:hover::before {
+  opacity: 0.5;
+  transform: scale(1.02);
+}
+
+.card-band[data-joy-band].joy-band--active .card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes joyPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.12;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.18;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.12;
+  }
+}
+
+.card-band[data-joy-band].joy-band--active .card:hover {
+  box-shadow: 0 32px 70px rgba(12, 26, 21, 0.22);
+}
+
 @media (max-width: 1024px) {
   .primary-nav ul {
     display: none;
@@ -1233,6 +1331,12 @@ details p {
 
   .card-band {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .card-band[data-joy-band].joy-band--active {
+    --joy-cols: 3;
+    --joy-rows: 3;
+    height: clamp(420px, 60vw, 560px);
   }
 
   .card--hands,
@@ -1316,6 +1420,24 @@ details p {
   .arc-card,
   .achievement-card {
     padding: 1.6rem;
+  }
+
+  .card-band[data-joy-band].joy-band--active {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .card-band[data-joy-band].joy-band--active .card {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 24px 46px rgba(23, 36, 33, 0.08);
   }
 
   .card {
