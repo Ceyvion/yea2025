@@ -670,6 +670,7 @@ p {
   grid-column: span 6;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
 }
 
 .giving-tracker__thermometer {
@@ -677,6 +678,7 @@ p {
   display: grid;
   justify-items: center;
   gap: 0.75rem;
+  text-align: center;
 }
 
 .giving-tracker__goal {
@@ -724,6 +726,7 @@ p {
 .giving-tracker__labels {
   display: grid;
   gap: 0.4rem;
+  justify-items: center;
   font-size: 0.75rem;
   font-weight: 600;
   color: rgba(18, 35, 25, 0.5);
@@ -1673,8 +1676,6 @@ details p {
     padding: clamp(3.5rem, 10vh, 5rem) 0;
   }
 
-  .giving-tracker__copy,
-  .giving-tracker__visual,
   .section-grid,
   .testimonial-card,
   .newsletter-shell,
@@ -1699,14 +1700,44 @@ details p {
   .donation-impact,
   .donation-faq-grid > div:first-child,
   .donation-faq-grid > div:last-child,
+  .giving-tracker__copy,
+  .giving-tracker__visual,
   .video-feature__media,
   .video-feature__content {
     grid-column: span 6;
   }
 
+  .giving-tracker__grid,
+  .video-feature__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    padding: clamp(3.5rem, 10vh, 5rem) 0;
+  }
+
+  .giving-tracker__copy {
+    gap: 1.2rem;
+  }
+
+  .giving-tracker__percent {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  }
+
   .donate-hero-media,
   .giving-tracker__visual {
     min-height: 300px;
+  }
+
+  .giving-tracker__track {
+    height: clamp(200px, 32vh, 280px);
+  }
+
+  .giving-tracker__marker {
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+  }
+
+  .giving-tracker__labels span:nth-child(2)::before {
+    width: 28px;
   }
 
   .footer-links {
@@ -1781,19 +1812,50 @@ details p {
   }
 
   .giving-tracker__visual {
-    justify-content: flex-start;
+    justify-content: center;
+    min-height: auto;
+  }
+
+  .giving-tracker__copy {
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .giving-tracker__percent {
+    font-size: 1.6rem;
+  }
+
+  .giving-tracker__amount,
+  .giving-tracker__meta {
+    font-size: 0.95rem;
   }
 
   .giving-tracker__thermometer {
-    justify-items: start;
+    justify-items: center;
   }
 
   .giving-tracker__labels {
-    justify-items: start;
+    justify-items: center;
+  }
+
+  .giving-tracker__track {
+    width: 18px;
+    height: clamp(180px, 30vh, 240px);
+  }
+
+  .giving-tracker__marker {
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+  }
+
+  .giving-tracker__labels span:nth-child(2)::before {
+    width: 24px;
   }
 
   .video-feature__content {
     gap: 1.2rem;
+    text-align: center;
   }
 
   .section {
