@@ -1131,7 +1131,7 @@ p {
   position: relative;
   isolation: isolate;
   padding: clamp(4.5rem, 12vh, 7rem) 0;
-  color: #f6f7f2;
+  background: linear-gradient(180deg, #0d1f16 0%, #132b1d 50%, #162f20 100%);
   overflow: hidden;
 }
 
@@ -1140,76 +1140,138 @@ p {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(140deg, rgba(6, 28, 18, 0.88) 0%, rgba(14, 86, 55, 0.62) 55%, rgba(6, 30, 20, 0.82) 100%),
-              url("../images/Africa-1980s-landscape.jpg") center/cover no-repeat;
-  transform: scale(1.05);
+  background:
+    radial-gradient(circle at 8% 12%, rgba(198, 246, 96, 0.13), transparent 50%),
+    radial-gradient(circle at 92% 28%, rgba(141, 213, 143, 0.14), transparent 55%),
+    url("../images/crowdlightscinematiclandscape.jpg") center/cover no-repeat;
+  opacity: 0.65;
 }
 
 .donate-hero-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(1.8rem, 4vw, 3.2rem);
-  align-items: center;
+  align-items: start;
   position: relative;
   z-index: 1;
 }
 
 .donate-hero-copy {
-  grid-column: span 6;
+  grid-column: span 7;
+  display: grid;
+  gap: 1.4rem;
+  color: rgba(246, 247, 242, 0.92);
+}
+
+.donate-hero-eyebrow {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(246, 247, 242, 0.7);
+  background: rgba(246, 247, 242, 0.08);
 }
 
 .donate-hero-copy h1 {
-  font-size: clamp(2.6rem, 4.6vw, 3.6rem);
-  margin-bottom: 1.2rem;
+  font-size: clamp(2.8rem, 5vw, 3.8rem);
+  margin: 0;
+  color: #f6f7f2;
 }
 
-.donate-hero-copy p {
+.donate-hero-lede {
+  margin: 0;
+  font-size: 1.1rem;
+  max-width: 48ch;
   color: rgba(246, 247, 242, 0.82);
 }
 
-.donate-hero-copy p + p {
-  margin-top: -0.2rem;
+.donate-hero-taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
-.donate-hero-meta {
-  margin-top: 2.4rem;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  padding: 1.4rem;
-  border-radius: var(--radius-lg);
-  background: rgba(6, 26, 18, 0.58);
-  border: 1px solid rgba(246, 247, 242, 0.2);
-}
-
-.meta-label {
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.75rem;
+.donate-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(246, 247, 242, 0.12);
+  color: rgba(246, 247, 242, 0.8);
+  font-size: 0.9rem;
   font-weight: 600;
-  color: rgba(246, 247, 242, 0.7);
-  margin-bottom: 0.35rem;
+  letter-spacing: 0.01em;
 }
 
-.meta-value {
-  font-weight: 600;
+.donate-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.donate-hero-actions .btn--light {
+  background: rgba(246, 247, 242, 0.12);
+  color: #f6f7f2;
+  border-color: rgba(246, 247, 242, 0.24);
+}
+
+.donate-hero-actions .btn--light:hover,
+.donate-hero-actions .btn--light:focus {
+  background: rgba(246, 247, 242, 0.2);
 }
 
 .donate-hero-media {
-  grid-column: span 6;
+  grid-column: span 5;
   border-radius: var(--radius-xl);
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 32px 60px rgba(6, 24, 15, 0.45);
-  min-height: 340px;
-  border: 1px solid rgba(246, 247, 242, 0.18);
+  padding: clamp(1.8rem, 3vw, 2.4rem);
+  background: rgba(6, 24, 15, 0.45);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(246, 247, 242, 0.14);
+  box-shadow: 0 32px 60px rgba(6, 24, 15, 0.3);
+  display: grid;
+  gap: 1.2rem;
 }
 
-.donate-hero-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.donate-hero-media--intent {
+  min-height: 340px;
+}
+
+.donate-hero-intent-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(246, 247, 242, 0.65);
+  margin: 0;
+}
+
+.donate-hero-intent-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1.1rem;
+  color: rgba(246, 247, 242, 0.9);
+}
+
+.donate-hero-intent-list li {
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.donate-hero-intent-list li::before {
+  content: "✶";
+  font-size: 0.9rem;
+  color: #c7f064;
+  margin-top: 0.35rem;
 }
 
 .donation-section {
@@ -1291,50 +1353,69 @@ p {
 
 .donation-impact {
   grid-column: span 5;
-  background: #111512;
-  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(160deg, rgba(17, 30, 22, 0.95) 0%, rgba(12, 22, 17, 0.85) 100%);
+  color: rgba(246, 247, 242, 0.9);
   border-radius: var(--radius-xl);
   padding: clamp(2rem, 4vw, 2.8rem);
-  box-shadow: 0 24px 56px rgba(17, 21, 18, 0.4);
+  box-shadow: 0 30px 60px rgba(6, 15, 10, 0.5);
   display: grid;
-  gap: 2rem;
+  gap: 2.2rem;
+  border: 1px solid rgba(246, 247, 242, 0.08);
 }
 
 .donation-impact h2,
 .donation-impact h3 {
-  color: #ffffff;
+  color: #f6f7f2;
 }
 
-.impact-breakdown {
-  list-style: none;
+.impact-progress {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.impact-progress-bar {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(246, 247, 242, 0.18);
+  overflow: hidden;
+}
+
+.impact-progress-fill {
+  position: absolute;
+  inset: 0;
+  width: calc(var(--impact-progress, 0) * 100%);
+  background: linear-gradient(90deg, #c7f064 0%, #8dd58f 50%, #1aaf6f 100%);
+  border-radius: inherit;
+  transition: width 600ms ease;
+}
+
+.impact-progress-copy {
   margin: 0;
-  padding: 0;
+  font-size: 0.95rem;
+  color: rgba(246, 247, 242, 0.75);
+}
+
+.impact-pillars {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.6rem;
 }
 
-.impact-breakdown li {
+.impact-pillars article {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem;
-  align-items: start;
+  gap: 0.6rem;
+  padding-left: 1.2rem;
+  border-left: 2px solid rgba(199, 240, 100, 0.45);
 }
 
-.percentage {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.12);
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
+.impact-pillars h3 {
+  margin: 0;
+  font-size: 1.15rem;
 }
 
-.donor-stories p {
-  margin: 0 0 0.8rem;
-  color: rgba(255, 255, 255, 0.75);
+.impact-pillars p {
+  margin: 0;
+  color: rgba(246, 247, 242, 0.7);
 }
 
 .donation-faq {
@@ -1740,6 +1821,28 @@ details p {
     width: 28px;
   }
 
+  .donate-hero-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(1.6rem, 3vw, 2.4rem);
+  }
+
+  .donate-hero-copy,
+  .donate-hero-media {
+    grid-column: span 6;
+  }
+
+  .donate-hero-copy {
+    gap: 1.1rem;
+  }
+
+  .donate-hero-lede {
+    max-width: 100%;
+  }
+
+  .donate-hero-actions {
+    gap: 0.75rem;
+  }
+
   .footer-links {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1828,6 +1931,50 @@ details p {
   .giving-tracker__amount,
   .giving-tracker__meta {
     font-size: 0.95rem;
+  }
+
+  .donate-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .donate-hero-copy,
+  .donate-hero-media {
+    grid-column: span 1;
+  }
+
+  .donate-hero-copy {
+    text-align: center;
+    align-items: center;
+  }
+
+  .donate-hero-eyebrow {
+    margin: 0 auto;
+  }
+
+  .donate-hero-lede {
+    max-width: 40ch;
+  }
+
+  .donate-hero-taglist {
+    justify-content: center;
+  }
+
+  .donate-hero-actions {
+    justify-content: center;
+  }
+
+  .donate-hero-media {
+    padding: 1.8rem;
+  }
+
+  .impact-pillars {
+    gap: 1.4rem;
+  }
+
+  .impact-pillars article {
+    padding-left: 0.9rem;
+    border-left-width: 1px;
   }
 
   .giving-tracker__thermometer {
