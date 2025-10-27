@@ -58,6 +58,129 @@
     });
   }
 
+  const givingTracker = document.querySelector('[data-giving-tracker]');
+  if (givingTracker && typeof window !== 'undefined') {
+    const fillEl = givingTracker.querySelector('[data-giving-fill]');
+    const amountEl = givingTracker.querySelector('[data-giving-amount]');
+    const percentEl = givingTracker.querySelector('[data-giving-percent]');
+    const supportersEl = givingTracker.querySelector('[data-giving-supporters]');
+    const updatedEl = givingTracker.querySelector('[data-giving-updated]');
+    const goal = Number(givingTracker.dataset.goal) || 1;
+    let currentAmount = Number(givingTracker.dataset.current) || 0;
+    let supporterCount = Number(givingTracker.dataset.supporters) || 0;
+    const updateInterval = Number(givingTracker.dataset.updateInterval) || 0;
+    let updateTimer = null;
+    let hasActivated = false;
+    let isAnimating = false;
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const percentFormatter = new Intl.NumberFormat('en-US', { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const timeFormatter = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+
+    const updateUI = (amountValue, supportersValue) => {
+      const ratio = Math.min(amountValue / goal, 1);
+      if (fillEl) {
+        fillEl.style.setProperty('--progress', `${ratio * 100}%`);
+      }
+      if (amountEl) {
+        amountEl.textContent = currencyFormatter.format(Math.round(amountValue));
+      }
+      if (percentEl) {
+        percentEl.textContent = `${percentFormatter.format(ratio)} funded`;
+      }
+      if (supportersEl) {
+        supportersEl.textContent = Math.round(supportersValue).toLocaleString('en-US');
+      }
+      givingTracker.setAttribute('aria-valuenow', `${Math.round(amountValue)}`);
+      givingTracker.setAttribute('aria-valuemax', `${Math.round(goal)}`);
+    };
+
+    const animateState = (targetAmount, targetSupporters, duration = 1600) => {
+      if (isAnimating) {
+        return;
+      }
+      isAnimating = true;
+      const startAmount = Number(givingTracker.dataset.displayAmount || 0);
+      const startSupporters = Number(givingTracker.dataset.displaySupporters || 0);
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutCubic(progress);
+        const amountValue = startAmount + (targetAmount - startAmount) * eased;
+        const supportersValue = startSupporters + (targetSupporters - startSupporters) * eased;
+        updateUI(amountValue, supportersValue);
+        givingTracker.dataset.displayAmount = `${amountValue}`;
+        givingTracker.dataset.displaySupporters = `${supportersValue}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          givingTracker.dataset.displayAmount = `${targetAmount}`;
+          givingTracker.dataset.displaySupporters = `${targetSupporters}`;
+          currentAmount = targetAmount;
+          supporterCount = targetSupporters;
+          if (updatedEl) {
+            updatedEl.textContent = timeFormatter.format(new Date());
+          }
+          if (currentAmount >= goal && updateTimer) {
+            window.clearInterval(updateTimer);
+            updateTimer = null;
+          }
+          isAnimating = false;
+        }
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const scheduleUpdate = () => {
+      if (isAnimating) {
+        return;
+      }
+      if (currentAmount >= goal) {
+        if (updateTimer) {
+          window.clearInterval(updateTimer);
+          updateTimer = null;
+        }
+        return;
+      }
+
+      const remaining = goal - currentAmount;
+      const baseIncrement = Math.max(1500, Math.round(goal * 0.01));
+      const randomIncrement = Math.min(
+        remaining,
+        Math.max(500, Math.floor(baseIncrement * (0.5 + Math.random() * 0.5)))
+      );
+      const nextAmount = currentAmount + randomIncrement;
+      const nextSupporters = supporterCount + Math.floor(5 + Math.random() * 15);
+      animateState(nextAmount, nextSupporters, 1800);
+    };
+
+    updateUI(0, 0);
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasActivated) {
+            hasActivated = true;
+            givingTracker.dataset.displayAmount = '0';
+            givingTracker.dataset.displaySupporters = '0';
+            animateState(currentAmount, supporterCount);
+            if (updateInterval > 0) {
+              updateTimer = window.setInterval(scheduleUpdate, updateInterval);
+            }
+            obs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    observer.observe(givingTracker);
+  }
+
   const joyBand = document.querySelector('[data-joy-band]');
   if (joyBand && typeof window !== 'undefined') {
     const cards = Array.from(joyBand.querySelectorAll('[data-joy-tile]'));
