@@ -206,19 +206,39 @@ p {
 }
 
 .hero {
+  position: relative;
   background: radial-gradient(circle at top right, rgba(141, 213, 143, 0.18), transparent 46%),
               linear-gradient(180deg, #ffffff 0%, #f6f7f2 100%);
   padding-bottom: clamp(5rem, 12vh, 8rem);
+  overflow: hidden;
 }
 
 .hero-shell {
+  position: relative;
+  isolation: isolate;
   padding-top: clamp(5rem, 12vh, 9rem);
+  padding-bottom: clamp(3.4rem, 9vh, 5rem);
+  margin-bottom: clamp(3rem, 8vh, 4.6rem);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  overflow: hidden;
+}
+
+.hero-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgba(6, 32, 22, 0.88) 0%, rgba(13, 90, 57, 0.6) 55%, rgba(7, 41, 28, 0.72) 100%),
+              url("../images/crowdlightscinematiclandscape.jpg") center/cover no-repeat;
+  z-index: -1;
+  transform: scale(1.05);
 }
 
 .hero-content {
+  position: relative;
   max-width: 720px;
   text-align: center;
   margin: 0 auto;
+  color: #f6f7f2;
 }
 
 .hero-eyebrow {
@@ -226,7 +246,7 @@ p {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: var(--color-muted);
+  color: rgba(245, 247, 241, 0.75);
   margin-bottom: 1.5rem;
 }
 
@@ -237,7 +257,7 @@ p {
 
 .hero-lede {
   font-size: 1.05rem;
-  color: var(--color-muted);
+  color: rgba(246, 247, 242, 0.85);
   max-width: 540px;
   margin: 0 auto 2.2rem auto;
 }
@@ -251,18 +271,30 @@ p {
 
 .hero-donate-note {
   margin-top: 1.5rem;
-  color: var(--color-muted);
+  color: rgba(248, 249, 244, 0.82);
   font-size: 0.95rem;
 }
 
 .hero-donate-note a {
-  color: var(--color-primary);
+  color: #c7f064;
   font-weight: 600;
 }
 
 .hero-donate-note a:hover,
 .hero-donate-note a:focus {
   text-decoration: underline;
+}
+
+.hero .btn--light {
+  background: rgba(246, 247, 242, 0.16);
+  color: #f6f7f2;
+  border-color: rgba(246, 247, 242, 0.35);
+}
+
+.hero .btn--light:hover,
+.hero .btn--light:focus {
+  background: rgba(246, 247, 242, 0.25);
+  transform: translateY(-1px);
 }
 
 .btn {
@@ -485,9 +517,9 @@ p {
 .card-illustration {
   position: absolute;
   inset: 0;
-  background: url("https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=520&q=80") center/cover;
+  background: url("../images/Africa-1980s-landscape2.jpg") center/cover;
   mix-blend-mode: multiply;
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 .card--hands .card-body {
@@ -701,7 +733,19 @@ p {
 }
 
 .newsletter {
-  background: linear-gradient(160deg, rgba(198, 246, 96, 0.25) 0%, rgba(141, 213, 143, 0.08) 100%);
+  position: relative;
+  isolation: isolate;
+  background: none;
+}
+
+.newsletter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(150deg, rgba(6, 32, 22, 0.85) 0%, rgba(14, 86, 55, 0.55) 55%, rgba(7, 38, 26, 0.78) 100%),
+              url("../images/Africa-1980s-landscape2.jpg") center/cover no-repeat;
+  transform: scale(1.03);
 }
 
 .newsletter-shell {
@@ -709,10 +753,13 @@ p {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: center;
+  color: #f6f7f2;
 }
 
 .newsletter-content {
   grid-column: span 6;
+  position: relative;
+  z-index: 1;
 }
 
 .newsletter-form {
@@ -720,26 +767,33 @@ p {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .newsletter-form input {
   width: 100%;
   padding: 0.9rem 1.2rem;
   border-radius: 999px;
-  border: 1px solid rgba(28, 35, 32, 0.18);
+  border: 1px solid rgba(246, 247, 242, 0.4);
   font-size: 1rem;
   font-family: inherit;
+  background: rgba(246, 247, 242, 0.12);
+  color: #f6f7f2;
+}
+
+.newsletter-form input::placeholder {
+  color: rgba(246, 247, 242, 0.65);
 }
 
 .newsletter-form input:focus {
-  border-color: var(--color-primary);
+  border-color: #c7f064;
   outline: none;
+  background: rgba(246, 247, 242, 0.2);
 }
 
-.form-note {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--color-muted);
+.newsletter .form-note {
+  color: rgba(246, 247, 242, 0.75);
 }
 
 .site-footer {
@@ -812,7 +866,21 @@ p {
 }
 
 .donate-hero {
+  position: relative;
+  isolation: isolate;
   padding: clamp(4.5rem, 12vh, 7rem) 0;
+  color: #f6f7f2;
+  overflow: hidden;
+}
+
+.donate-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(140deg, rgba(6, 28, 18, 0.88) 0%, rgba(14, 86, 55, 0.62) 55%, rgba(6, 30, 20, 0.82) 100%),
+              url("../images/Africa-1980s-landscape.jpg") center/cover no-repeat;
+  transform: scale(1.05);
 }
 
 .donate-hero-grid {
@@ -820,6 +888,8 @@ p {
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: clamp(1.8rem, 4vw, 3.2rem);
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .donate-hero-copy {
@@ -832,7 +902,7 @@ p {
 }
 
 .donate-hero-copy p {
-  color: var(--color-muted);
+  color: rgba(246, 247, 242, 0.82);
 }
 
 .donate-hero-copy p + p {
@@ -846,7 +916,8 @@ p {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   padding: 1.4rem;
   border-radius: var(--radius-lg);
-  background: rgba(10, 86, 55, 0.08);
+  background: rgba(6, 26, 18, 0.58);
+  border: 1px solid rgba(246, 247, 242, 0.2);
 }
 
 .meta-label {
@@ -855,7 +926,7 @@ p {
   letter-spacing: 0.18em;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-primary-dark);
+  color: rgba(246, 247, 242, 0.7);
   margin-bottom: 0.35rem;
 }
 
@@ -868,8 +939,9 @@ p {
   border-radius: var(--radius-xl);
   overflow: hidden;
   position: relative;
-  box-shadow: 0 32px 60px rgba(23, 36, 33, 0.14);
+  box-shadow: 0 32px 60px rgba(6, 24, 15, 0.45);
   min-height: 340px;
+  border: 1px solid rgba(246, 247, 242, 0.18);
 }
 
 .donate-hero-media img {
@@ -1120,6 +1192,92 @@ details p {
   margin: 0;
   font-style: italic;
   color: var(--color-muted);
+}
+
+.arc-card--immersive {
+  position: relative;
+  overflow: hidden;
+  color: #f6f7f2;
+  border: 1px solid rgba(246, 247, 242, 0.22);
+  background: transparent;
+  box-shadow: 0 28px 56px rgba(6, 24, 16, 0.4);
+}
+
+.arc-card--immersive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--arc-card-overlay, linear-gradient(140deg, rgba(6, 32, 22, 0.85) 0%, rgba(12, 60, 39, 0.72) 100%)),
+              var(--arc-card-image, none);
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.05);
+}
+
+.arc-card--immersive .arc-tag {
+  background: rgba(246, 247, 242, 0.22);
+  color: #f6f7f2;
+}
+
+.arc-card--immersive .arc-list {
+  color: rgba(246, 247, 242, 0.85);
+}
+
+.arc-card--immersive .arc-list a {
+  color: #c7f064;
+}
+
+.arc-card--immersive .arc-quote {
+  color: rgba(246, 247, 242, 0.8);
+}
+
+.arc-card--immersive .btn--dark {
+  background: rgba(246, 247, 242, 0.2);
+  color: #f6f7f2;
+  border-color: rgba(246, 247, 242, 0.35);
+}
+
+.arc-card--immersive .btn--dark:hover,
+.arc-card--immersive .btn--dark:focus {
+  background: rgba(246, 247, 242, 0.3);
+}
+
+.arc-card--immersive .btn--outline {
+  border-color: rgba(246, 247, 242, 0.4);
+  color: #f6f7f2;
+}
+
+.arc-card--immersive .btn--outline:hover,
+.arc-card--immersive .btn--outline:focus {
+  border-color: #c7f064;
+  color: #c7f064;
+}
+
+.arc-card--immersive .btn--light {
+  background: rgba(246, 247, 242, 0.2);
+  color: #f6f7f2;
+  border-color: rgba(246, 247, 242, 0.35);
+}
+
+.arc-card--immersive .btn--light:hover,
+.arc-card--immersive .btn--light:focus {
+  background: rgba(246, 247, 242, 0.28);
+}
+
+.arc-card--joy {
+  --arc-card-image: url("../images/AfricaDay_CeleBKYN02025-landscape.jpg");
+  --arc-card-overlay: linear-gradient(140deg, rgba(5, 28, 19, 0.82) 0%, rgba(13, 90, 57, 0.58) 55%, rgba(7, 41, 28, 0.76) 100%);
+}
+
+.arc-card--independence {
+  --arc-card-image: url("../images/Africa-1980s-landscape.jpg");
+  --arc-card-overlay: linear-gradient(135deg, rgba(5, 24, 16, 0.85) 0%, rgba(8, 52, 33, 0.68) 60%, rgba(10, 40, 27, 0.8) 100%);
+}
+
+.arc-card--resilience {
+  --arc-card-image: url("../images/Africa-1980s-landscape2.jpg");
+  --arc-card-overlay: linear-gradient(135deg, rgba(8, 30, 20, 0.88) 0%, rgba(12, 58, 37, 0.7) 55%, rgba(6, 26, 17, 0.82) 100%);
 }
 
 .arc-quote a {
